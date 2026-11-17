@@ -1,0 +1,27 @@
+
+# Build results
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Test results
+TestResults/
+[Tt]est[Rr]esult*/
+TestResult.xml
+*.trx
+*.VisualState.xml
+nunit-*.xml
+
+# Logs
+*.log

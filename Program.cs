@@ -24,6 +24,7 @@ class Test
         wait.Until(driver=>driver.FindElement(By.Id("onetrust-accept-btn-handler"))).Click();
          
        wait.Until(driver=>driver.FindElement(By.LinkText("Careers"))).Click(); 
+       wait.Until(driver=>driver.FindElement(By.ClassName("button-body"))).Click();
        Console.ReadLine();
     }
 
