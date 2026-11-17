@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "dgSpecHash": "tCdta6O/5hM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ACER-1\\Desktop\\c#\\awesome project\\selenium\\selenium.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ACER-1\\.nuget\\packages\\nunit\\2.5.7.10213\\nunit.2.5.7.10213.nupkg.sha512",
+    "C:\\Users\\ACER-1\\.nuget\\packages\\selenium.webdriver\\4.53.0\\selenium.webdriver.4.53.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'NUnit 2.5.7.10213' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\ACER-1\\Desktop\\c#\\awesome project\\selenium\\selenium.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\ACER-1\\Desktop\\c#\\awesome project\\selenium\\selenium.csproj",
+      "libraryId": "NUnit",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

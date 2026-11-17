@@ -1,0 +1,87 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "selenium/1.0.0": {
+        "dependencies": {
+          "NUnit": "2.5.7.10213",
+          "Selenium.WebDriver": "4.53.0"
+        },
+        "runtime": {
+          "selenium.dll": {}
+        }
+      },
+      "NUnit/2.5.7.10213": {
+        "runtime": {
+          "lib/nunit.framework.dll": {
+            "assemblyVersion": "2.5.7.10213",
+            "fileVersion": "2.5.7.10213"
+          },
+          "lib/nunit.mocks.dll": {
+            "assemblyVersion": "2.5.7.10213",
+            "fileVersion": "2.5.7.10213"
+          },
+          "lib/pnunit.framework.dll": {
+            "assemblyVersion": "1.0.3865.21394",
+            "fileVersion": "1.0.3865.21394"
+          }
+        }
+      },
+      "Selenium.WebDriver/4.53.0": {
+        "runtime": {
+          "lib/net8.0/Selenium.WebDriver.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/selenium-manager": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/selenium-manager": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx/native/selenium-manager": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win/native/selenium-manager.exe": {
+            "rid": "win",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "selenium/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NUnit/2.5.7.10213": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4aEVHJ3K6SRvmnUn630f6LMy6wfM5tZyMhSSAcMrOs2EspiwI0wsGtTQkFWizqjhNsO+fn0I/ravWZAAVfXpqg==",
+      "path": "nunit/2.5.7.10213",
+      "hashPath": "nunit.2.5.7.10213.nupkg.sha512"
+    },
+    "Selenium.WebDriver/4.53.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5drFnFaNcc5b3RoR5kYaRUx18uAyLZDecN0Z5QL6hDt+cunL8WqqDEBL34Q5OQZDUy4rHJhPJzNRK0bVaa7Qyg==",
+      "path": "selenium.webdriver/4.53.0",
+      "hashPath": "selenium.webdriver.4.53.0.nupkg.sha512"
+    }
+  }
+}
