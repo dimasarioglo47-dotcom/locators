@@ -20,9 +20,11 @@ class Test
     public void Tester()
     {
         driver.Manage().Window.Maximize();
-        driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
-         Console.ReadLine();
-    //    driver.FindElement(By.LinkText()); 
+        var wait = new WebDriverWait(driver,TimeSpan.FromSeconds(5));
+        wait.Until(driver=>driver.FindElement(By.Id("onetrust-accept-btn-handler"))).Click();
+         
+       wait.Until(driver=>driver.FindElement(By.LinkText("Careers"))).Click(); 
+       Console.ReadLine();
     }
 
 
