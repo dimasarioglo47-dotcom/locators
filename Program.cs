@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using var driver = new ChromeDriver();
 [TestFixtureAttribute]
 class Test
 {
@@ -12,25 +11,28 @@ class Test
     public void SetUp()
     {
         driver = new ChromeDriver();
+    
         driver.Url="https://www.epam.com/"; 
-        Console.ReadLine();
+        //temporary
     }
     
     [Test]
     public void Tester()
     {
+        driver.Manage().Window.Maximize();
+        driver.FindElement(By.Id("onetrust-accept-btn-handler")).Click();
+         Console.ReadLine();
     //    driver.FindElement(By.LinkText()); 
     }
 
 
 
-    [TearDown]
-    public void TearDown()
-    {
-        driver.Quit();
-        driver.Dispose();
+    // [TearDown]
+    // public void TearDown()
+    // {
+    //     driver.Dispose();
         
-    }
+    // }
     
 
 }
