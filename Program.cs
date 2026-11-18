@@ -60,7 +60,9 @@ class Test
        input.SendKeys(Keys.Enter);
         var remote =wait.Until(driver => driver.FindElement(By.XPath("//label[contains(.,'Remote')]"))); 
        remote.Click();
+
        wait.Until(driver=>driver.FindElement(By.CssSelector("[data-testid='search-input']"))).SendKeys(ProgramLanguage);
+
        wait.Until(d=>d.FindElement(By.Name("submit_search_box_button"))).Click();
        var link = wait.Until(d=>d.FindElement(By.XPath("(//a[@data-testid='job-card-link'])[last()]")));
        new Actions(driver).MoveToElement(link).Click().Perform();
