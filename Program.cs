@@ -46,7 +46,7 @@ class Test
        wait.Until(d => !d.FindElements(By.Id("onetrust-banner-sdk")).Any(e => e.Displayed));
        wait.Until(driver =>
                driver.FindElement(
-                   By.XPath("//div[@data-testid='country-dropdown']/descendant::div[contains(@class,'dropdown__control')]")))
+                   By.XPath("//div[@data-testid='country-dropdown']/descendant::div[contains(@class,'dropdown__control')]"))) 
            .Click();
        var input = wait.Until(driver =>
            {
@@ -60,9 +60,7 @@ class Test
        input.SendKeys(Keys.Enter);
         var remote =wait.Until(driver => driver.FindElement(By.XPath("//label[contains(.,'Remote')]"))); 
        remote.Click();
-
        wait.Until(driver=>driver.FindElement(By.CssSelector("[data-testid='search-input']"))).SendKeys(ProgramLanguage);
-
        wait.Until(d=>d.FindElement(By.Name("submit_search_box_button"))).Click();
        var link = wait.Until(d=>d.FindElement(By.XPath("(//a[@data-testid='job-card-link'])[last()]")));
        new Actions(driver).MoveToElement(link).Click().Perform();
