@@ -19,8 +19,8 @@ class Test
     }
     
     [Test]
-        [TestCase("Ukraine")]
-    public void Tester(string param)
+        [TestCase("C#","Ukraine")]
+    public void Tester(string lab,string param)
     {
         driver.Manage().Window.Maximize();
         var wait = new WebDriverWait(driver,TimeSpan.FromSeconds(10));
@@ -29,6 +29,7 @@ class Test
        wait.Until(driver=>driver.FindElement(By.LinkText("Careers"))).Click(); 
        wait.Until(driver=>driver.FindElement(By.ClassName("button-body"))).Click();
        wait.Until(driver=>driver.FindElement(By.Id("onetrust-accept-btn-handler"))).Click();
+       wait.Until(d => !d.FindElements(By.Id("onetrust-banner-sdk")).Any(e => e.Displayed));
        wait.Until(driver =>
                driver.FindElement(
                    By.XPath("//div[@data-testid='country-dropdown']//div[contains(@class,'dropdown__control')]")))
@@ -43,8 +44,10 @@ class Test
       
        input.SendKeys(param);
        input.SendKeys(Keys.Enter);
-       wait.Until(driver => driver.FindElement(By.XPath("//label[contains(.,'Remote')]"))).Click();
-
+        var remote =wait.Until(driver => driver.FindElement(By.XPath("//label[contains(.,'Remote')]"))); 
+       remote.Click();
+       wait.Until(driver=>driver.FindElement(By.CssSelector("[data-testid='search-input']"))).SendKeys(lab);
+       wait.Until(d=>d.FindElement(By.CssSelector("[data-testid='buttonComponent']"))).Click();
     }
 
 
