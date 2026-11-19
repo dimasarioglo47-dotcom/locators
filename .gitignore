@@ -4,6 +4,7 @@ bin/
 obj/
 [Bb]in/
 [Oo]bj/
+.idea/
 
 # Visual Studio
 .vs/
