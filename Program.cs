@@ -8,6 +8,7 @@ using NUnit.Framework.Interfaces;
 [TestFixture]
 class Test
 {
+    private int ExplicitWaitSeconds => 15;
 
     private IWebDriver _driver = null!;
     private  string  _baseUrl=null!;
@@ -26,7 +27,7 @@ class Test
         _driver.Url=_baseUrl;
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero; 
         _driver.Manage().Window.Maximize();
-        _wait = new WebDriverWait(_driver,TimeSpan.FromSeconds(15));
+        _wait = new WebDriverWait(_driver,TimeSpan.FromSeconds(ExplicitWaitSeconds));
         _wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException));
     
 
