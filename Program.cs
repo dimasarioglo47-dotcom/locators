@@ -4,23 +4,30 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using Microsoft.Extensions.Configuration;
-using NUnit.Framework.Interfaces;
+
 [TestFixture]
 class Test
 {
-    private int ExplicitWaitSeconds => 15;
+    private int ExplicitWaitSeconds => int.TryParse(_jsonWaitSeconds,out var result) ? result : _waitSeconds;
 
     private IWebDriver _driver = null!;
     private  string  _baseUrl=null!;
     private WebDriverWait _wait = null!;
+    private string? _jsonWaitSeconds;
+    private int _waitSeconds;
     
 
     [SetUp]
     public void SetUp()
     {
+        _waitSeconds = 10;
+        var config = new ConfigurationBuilder() .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false)
+            .Build();; 
 
-        _baseUrl = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build()["BaseUrl"] ??
+        _baseUrl = config["BaseUrl"] ??
                    throw new InvalidOperationException("BaseUrl is not set");
+         _jsonWaitSeconds = config["Seconds"];
 
         _driver = new ChromeDriver();
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
