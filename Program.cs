@@ -6,7 +6,7 @@ using OpenQA.Selenium.Interactions;
 using Microsoft.Extensions.Configuration;
 
 [TestFixture]
-class Test
+class RemoteJobSearchTests
 {
     private int ExplicitWaitSeconds => int.TryParse(_jsonWaitSeconds,out var result) ? result : _waitSeconds;
 
@@ -62,14 +62,9 @@ class Test
            .FirstOrDefault(b=>b.
                Text.Contains("apply",StringComparison.OrdinalIgnoreCase) && b is { Displayed: true, Enabled: true }));
        apply.Click();
-       var pageText = _wait.Until(d =>
-       {
-           var text = d.FindElement(By.TagName("body")).Text;
-           return text.Contains(programLanguage, StringComparison.OrdinalIgnoreCase) ? text : null;
-       });
-
-       Assert.That(pageText, Does.Contain(programLanguage).IgnoreCase,
-           $"'{programLanguage}' not found on the job page");
+      bool IsOnthePage = _wait.Until(d=>d.FindElement(By.TagName("body"))
+      .Text.Contains(programLanguage,StringComparison.OrdinalIgnoreCase));
+      Assert.That(IsOnthePage,Is.True);
     }
     [TearDown]
     public void TearDown()
