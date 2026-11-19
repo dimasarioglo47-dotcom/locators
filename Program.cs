@@ -39,18 +39,20 @@ class Test
     {
         
         CloseCookieBanner();
-        _wait.Until(webDriver=>webDriver.FindElement(By.LinkText("Careers"))).Click(); 
-       _wait.Until(webDriver=>webDriver.FindElement(By.ClassName("button-body"))).Click();
+        WaitForDisplayed(By.LinkText("Careers")).Click(); 
+        WaitForDisplayed(By.ClassName("button-body")).Click();
        CloseCookieBanner();
        SelectCountry(country);
       
         var remote =_wait.Until(webDriver => webDriver.FindElement(By.XPath("//label[contains(.,'Remote')]"))); 
        remote.Click();
        _wait.Until(webDriver=>webDriver.FindElement(By.CssSelector("[data-testid='search-input']"))).SendKeys(programLanguage);
-       _wait.Until(d=>d.FindElement(By.Name("submit_search_box_button"))).Click();
-       var link = _wait.Until(d=>d.FindElement(By.XPath("(//a[@data-testid='job-card-link'])[last()]")));
+       WaitForDisplayed(By.Name("submit_search_box_button")).Click();
+       var link = WaitForDisplayed(By.XPath("(//a[@data-testid='job-card-link'])[last()]"));
        new Actions(_driver).MoveToElement(link).Click().Perform();
-       var apply = _wait.Until(d => d.FindElements(By.TagName("button")).FirstOrDefault(b=>b.Text.Contains("apply",StringComparison.OrdinalIgnoreCase) && b is { Displayed: true, Enabled: true }));
+       var apply = _wait.Until(d => d.FindElements(By.TagName("button"))
+           .FirstOrDefault(b=>b.
+               Text.Contains("apply",StringComparison.OrdinalIgnoreCase) && b is { Displayed: true, Enabled: true }));
        apply.Click();
        var pageText = _wait.Until(d =>
        {
@@ -64,23 +66,13 @@ class Test
     [TearDown]
     public void TearDown()
     {
-        
-     if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed
-        && _driver is ITakesScreenshot shot)
-    {
-        shot.GetScreenshot().SaveAsFile($"{TestContext.CurrentContext.Test.Name}.png");
-    }
-
-    _driver.Dispose();
-   
-        
+        _driver.Dispose();
     }
 
 
     private void CloseCookieBanner()
     {
-        _wait.Until(d => d.FindElements(By.Id("onetrust-accept-btn-handler"))
-            .FirstOrDefault(e => e is { Displayed: true, Enabled: true })).Click();
+        WaitForDisplayed(By.Id("onetrust-accept-btn-handler")).Click();
         _wait.Until(d => !d.FindElements(By.Id("onetrust-banner-sdk")).Any(e => e.Displayed));
         
     }
@@ -101,13 +93,14 @@ class Test
         input.Clear();
         input.SendKeys(country);
         input.SendKeys(Keys.Enter);
+        
     }
 
-    // public IWebElement WaitForDisplayed(By by)
-    // {
-    //     var el =_wait.Until(d => d.FindElements(by).FirstOrDefault(e=>e is { Displayed: true, Enabled: true }));
-    //     return el ?? throw new WebDriverTimeoutException($"Element '{by}' was not displayed within {ExplicitWaitSeconds} seconds.");
-    // }
+    private IWebElement WaitForDisplayed(By by)
+    {
+        var el =_wait.Until(d => d.FindElements(by).FirstOrDefault(e=>e is { Displayed: true, Enabled: true }));
+        return el ?? throw new WebDriverTimeoutException($"Element '{by}' was not displayed within {ExplicitWaitSeconds} seconds.");
+    }
     
 
 }
