@@ -23,7 +23,7 @@ class Test
         _waitSeconds = 10;
         var config = new ConfigurationBuilder() .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false)
-            .Build();; 
+            .Build();
 
         _baseUrl = config["BaseUrl"] ??
                    throw new InvalidOperationException("BaseUrl is not set");
@@ -48,7 +48,7 @@ class Test
         
         CloseCookieBanner();
         WaitForDisplayed(By.LinkText("Careers")).Click(); 
-        WaitForDisplayed(By.ClassName("button-body")).Click();
+        WaitForDisplayed(By.PartialLinkText("START YOUR SEARCH")).Click();
        CloseCookieBanner();
        SelectCountry(country);
       
@@ -87,10 +87,9 @@ class Test
 
     private void SelectCountry(string country)
     {
-        _wait.Until(webDriver =>
-                webDriver.FindElement(
-                    By.XPath("//div[@data-testid='country-dropdown']/descendant::div[contains(@class,'dropdown__control')]"))) 
-            .Click();
+        var countryDropdown = WaitForDisplayed(By.CssSelector("[data-testid='country-dropdown']"));
+        var control = countryDropdown.FindElement(By.ClassName("dropdown__control"));
+        control.Click();
         var input = _wait.Until(webDriver =>
             {
                 var el =webDriver.FindElement(By.CssSelector("input[aria-label='Choose your country']:not([disabled])"));
