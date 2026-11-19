@@ -4,8 +4,9 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using Microsoft.Extensions.Configuration;
-
+namespace JobSearchAutomation.Tests;
 [TestFixture]
+
 class RemoteJobSearchTests
 {
     private int ExplicitWaitSeconds => int.TryParse(_jsonWaitSeconds,out var result) ? result : _waitSeconds;
