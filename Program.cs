@@ -102,6 +102,12 @@ class Test
         input.SendKeys(country);
         input.SendKeys(Keys.Enter);
     }
+
+    // public IWebElement WaitForDisplayed(By by)
+    // {
+    //     var el =_wait.Until(d => d.FindElements(by).FirstOrDefault(e=>e is { Displayed: true, Enabled: true }));
+    //     return el ?? throw new WebDriverTimeoutException($"Element '{by}' was not displayed within {ExplicitWaitSeconds} seconds.");
+    // }
     
 
 }
