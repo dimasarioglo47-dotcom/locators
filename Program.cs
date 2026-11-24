@@ -11,7 +11,7 @@ class RemoteJobSearchTests
 {
     private int ExplicitWaitSeconds => int.TryParse(_jsonWaitSeconds,out var result) ? result : _waitSeconds;
 
-    private IWebDriver _driver = null!;
+    private IWebDriver? _driver;
     private  string  _baseUrl=null!;
     private WebDriverWait _wait = null!;
     private string? _jsonWaitSeconds;
@@ -58,7 +58,7 @@ class RemoteJobSearchTests
        _wait.Until(webDriver=>webDriver.FindElement(By.CssSelector("[data-testid='search-input']"))).SendKeys(programLanguage);
        WaitForDisplayed(By.Name("submit_search_box_button")).Click();
        var link = WaitForDisplayed(By.XPath("(//a[@data-testid='job-card-link'])[last()]"));
-       new Actions(_driver).MoveToElement(link).Click().Perform();
+       new Actions(_driver!).MoveToElement(link).Click().Perform();
        var apply = _wait.Until(d => d.FindElements(By.TagName("button"))
            .FirstOrDefault(b=>b.
                Text.Contains("apply",StringComparison.OrdinalIgnoreCase) && b is { Displayed: true, Enabled: true }));
@@ -70,7 +70,7 @@ class RemoteJobSearchTests
     [TearDown]
     public void TearDown()
     {
-        _driver.Dispose();
+        _driver?.Dispose();
     }
 
 
@@ -101,7 +101,8 @@ class RemoteJobSearchTests
 
     private IWebElement WaitForDisplayed(By by)
     {
-        var el =_wait.Until(d => d.FindElements(by).FirstOrDefault(e=>e is { Displayed: true, Enabled: true }));
+        var el =_wait.Until(d => d.FindElements(by)
+        .FirstOrDefault(e=>e is { Displayed: true, Enabled: true }));
         return el ?? throw new WebDriverTimeoutException($"Element '{by}' was not displayed within {ExplicitWaitSeconds} seconds.");
     }
     
