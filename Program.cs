@@ -3,41 +3,27 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
-using Microsoft.Extensions.Configuration;
+
 namespace JobSearchAutomation.Tests;
 [TestFixture]
 
 class RemoteJobSearchTests
 {
-    private int ExplicitWaitSeconds => int.TryParse(_jsonWaitSeconds,out var result) ? result : _waitSeconds;
+    private WebDriverWait _wait;
+    private IWebDriver _driver;
+    private IndexPage _indexPage;
 
-    private IWebDriver? _driver;
-    private  string  _baseUrl=null!;
-    private WebDriverWait _wait = null!;
-    private string? _jsonWaitSeconds;
-    private int _waitSeconds;
+   
     
-
     [SetUp]
     public void SetUp()
     {
-        _waitSeconds = 10;
-        var config = new ConfigurationBuilder() .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: false)
-            .Build();
-
-        _baseUrl = config["BaseUrl"] ??
-                   throw new InvalidOperationException("BaseUrl is not set");
-         _jsonWaitSeconds = config["Seconds"];
-
         _driver = new ChromeDriver();
-        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-        _driver.Url=_baseUrl;
-        _driver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero; 
-        _driver.Manage().Window.Maximize();
-        _wait = new WebDriverWait(_driver,TimeSpan.FromSeconds(ExplicitWaitSeconds));
+        _indexPage = new IndexPage(_driver);
+        _wait = _indexPage.Wait;
         _wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException));
-    
+        _indexPage.Open();
+
 
     }
     
@@ -58,7 +44,7 @@ class RemoteJobSearchTests
        _wait.Until(webDriver=>webDriver.FindElement(By.CssSelector("[data-testid='search-input']"))).SendKeys(programLanguage);
        WaitForDisplayed(By.Name("submit_search_box_button")).Click();
        var link = WaitForDisplayed(By.XPath("(//a[@data-testid='job-card-link'])[last()]"));
-       new Actions(_driver!).MoveToElement(link).Click().Perform();
+       link.Click();
        var apply = _wait.Until(d => d.FindElements(By.TagName("button"))
            .FirstOrDefault(b=>b.
                Text.Contains("apply",StringComparison.OrdinalIgnoreCase) && b is { Displayed: true, Enabled: true }));
@@ -103,7 +89,7 @@ class RemoteJobSearchTests
     {
         var el =_wait.Until(d => d.FindElements(by)
         .FirstOrDefault(e=>e is { Displayed: true, Enabled: true }));
-        return el ?? throw new WebDriverTimeoutException($"Element '{by}' was not displayed within {ExplicitWaitSeconds} seconds.");
+        return el ?? throw new WebDriverTimeoutException($"Element '{by}' was not displayed");
     }
     
 
